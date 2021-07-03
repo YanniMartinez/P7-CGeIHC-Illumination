@@ -322,6 +322,10 @@ int main()
 	Material_brillante = Material(4.0f, 256); //Variable especular y brillo son los argumentos. Brillo muy grande
 	Material_opaco = Material(0.3f, 4); //Radio pequeño y brillo pequeño
 
+	float offset = 0.0f;
+	float posYavion = 0.0f;
+	float posXavion = 0.0f;
+
 	//posición inicial del helicóptero
 	glm::vec3 posblackhawk = glm::vec3(-20.0f, 6.0f, -1.0);
 	glm::vec3 desplazamiento = glm:: vec3(0.0f, 0.0f, 0.0f);
@@ -434,8 +438,7 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
 
-		/*1.- Agregar al coche las 4 llantas con jerarquía y desplazamiento en X
-		2.- Crear la luz del coche y posicionar a que ilumine hacia adelante*/
+		/*Movimineto de llantas*/
 
 		//agregar su coche y ponerle material
 		model = glm::mat4(1.0);
@@ -452,6 +455,7 @@ int main()
 		model = glm::translate(model, glm::vec3(-3.5f, -0.5f, 2.7f));  //Ajustando la posición de la llanta
 		model = glm::scale(model, glm::vec3(0.017f, 0.017f, 0.017f)); //Ajustando el tamaño de la llanta
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 180 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //Movimineto de llantas
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
 
@@ -493,11 +497,27 @@ int main()
 		glm::vec3 unitaryX(-1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
 		spotLights[1].SetFlash(carr, unitaryX);
 		
+		/*Ejercicio 1:
+		El helicóptero se desplaza en forma senoidal, llegue a un punto al avanzar, de la vuelta sobre su centro y regrese.esto de forma cíclica infinita.
+			Ejercicio 2 :
+
+			El coche avance y retrocede sin girar sobre su eje, el spotlight ilumine hacia la dirección donde el coche se está desplazand.o*/
+
 		//Helicoptero
-		desplazamiento = glm:: vec3 (mainWindow.getmuevex() , 0.0f, 0.0f);		//agregar incremento en X con teclado
+		offset += 0.01; //Controlará la velocidad en la que sube y baja el avion.
+		if (posXavion > -20) {
+			
+			posXavion -= 0.01 * deltaTime; //Permite desplazar hacia enfrente de forma constante. Se recomienda multiplicar por deltaTime
+		}
+		posYavion = sin(10*offset *toRadians);
+
+		desplazamiento = glm:: vec3 (posXavion , posYavion, 0.0f);		//agregar incremento en X con teclado
+		//desplazamiento = glm::vec3(mainWindow.getmuevex(), posYavion, 0.0f);		//agregar incremento en X con teclado
+		//desplazamiento = glm::vec3(posXavion, posYavion, 0.0f);		//Se deplaza en forma diagonal
+
 		model = glm::mat4(1.0);
 		model = glm:: translate(model, posblackhawk + desplazamiento);
-		model = glm::translate(model, glm::vec3(-20.0f + mainWindow.getmuevex(), 8.0 + mainWindow.getmuevey(), -1.0)); //Moviendo el helicoptero en los X,Y
+		//model = glm::translate(model, glm::vec3(-20.0f + mainWindow.getmuevex(), 8.0 + mainWindow.getmuevey(), -1.0)); //Moviendo el helicoptero en los X,Y
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
@@ -525,6 +545,7 @@ int main()
 
 		model = glm::mat4(1.0);
 		model = glm::translate(model, glm::vec3(0.0f, -1.53f, 0.0f));
+		model = glm::scale(model, glm::vec3(25.0f, 1.9f, 1.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Camino_M.RenderModel();
 
@@ -547,7 +568,16 @@ int main()
 		meshList[3]->RenderMesh();
 		glDisable(GL_BLEND);								//Si no habilitamos este blending cuando no tenemos fondo esto se verá negro
 
-		//La animación nos sirve para mostrarle al usuario que no está viendo una foto.
+		//La animación nos sirve para mostrarle al usuario que no está viendo una foto, se pueden ejecutar mediante Triggers por medio de banderas.
+		/*			ANIMACIÓN:
+		COND1: Debe tener 2 tipos de transformaciones.
+		COND2: Si estoy hablando de 1 bandera o 2 banderas, que solo sea ciclica que no esten condicioonadas por banderas estoy hablando de animación básica.
+		
+		COMPLEJA:
+		COND1: Animación basada en funciones, es decir, tomar una función de algun movimiento fisico real, ejemplo ecuaciones reales como caida libre o tiro parabólico
+		COND2: Debemos considerar almenos 5 casos que se presenten
+		*/
+		//Para que se considere animación básica no debe tener sólo traslación rotacion o escalación, tiene que ser por lo menos una trasformacion de 2 cosas
 
 		glUseProgram(0);
 
