@@ -1,0 +1,61 @@
+﻿  Camera.cpp
+  DirectionalLight.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\DirectionalLight.cpp(18,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\DirectionalLight.cpp(19,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\DirectionalLight.cpp(21,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\DirectionalLight.cpp(22,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+  Iluminacion2021.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(387,15): warning C4244: 'inicializando': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(389,43): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+  Light.cpp
+  Material.cpp
+  Mesh_tn.cpp
+  Model.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(16,10): warning C4477: 'printf' : la cadena de formato '%s' requiere un argumento de tipo 'char *', pero el argumento variádico 1 tiene el tipo 'const std::string'
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(16,80): warning C4474: "printf": se pasaron demasiados argumentos para la cadena de formato
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(16,80): message : los marcadores de posición y sus parámetros esperan 1 argumentos variádicos, pero se proporcionaron 2
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(51,7): warning C4804: '<': uso no seguro del tipo 'bool' en la operación
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(51,21): warning C4018: '<': no coinciden signed/unsigned
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(138,14): warning C4477: 'printf' : la cadena de formato '%s' requiere un argumento de tipo 'char *', pero el argumento variádico 1 tiene el tipo 'std::string'
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Model.cpp(147,14): warning C4477: 'printf' : la cadena de formato '%s' requiere un argumento de tipo 'char *', pero el argumento variádico 1 tiene el tipo 'std::string'
+  PointLight.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(28,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(29,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(30,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(32,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(33,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(34,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\PointLight.cpp(35,14): warning C4244: 'argumento': conversión de 'GLfloat' a 'GLint'; posible pérdida de datos
+  Shader_light.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(202,75): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(202,26): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(201,91): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(201,42): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(215,98): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(215,62): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(215,24): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(214,70): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(214,24): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(213,88): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Shader_light.cpp(213,42): warning C4244: 'argumento': conversión de 'GLuint' a 'GLfloat'; posible pérdida de datos
+  Skybox.cpp
+  Sphere.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Sphere.cpp(39,13): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Sphere.cpp(43,16): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
+  SpotLight.cpp
+  Texture.cpp
+  Window.cpp
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.h(12,36): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.h(13,37): warning C4244: 'return': conversión de 'GLint' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(160,22): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(161,22): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(165,28): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(166,40): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(168,21): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(169,21): warning C4244: '=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
+  Generando código...
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Window.cpp(77): warning C4715: 'Window::Initialise': no todas las rutas de acceso de control devuelven un valor
+LINK : warning LNK4098: la biblioteca predeterminada'MSVCRT' entra en conflicto con otras bibliotecas; use la biblioteca /NODEFAULTLIB:biblioteca
+  Practica5.vcxproj -> C:\Users\Yann\Desktop\Computación Grafica\Practica7\Debug\Practica5.exe
