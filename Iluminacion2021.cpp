@@ -455,9 +455,15 @@ int main()
 		}
 		if (banderaCarro == false) { //Irá en negativo  <---
 			posXcarro -= 0.1 * deltaTime;
+			//*************************** FARO DEL CARRO ***********************
+			glm::vec3 unitaryX(-1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
+			spotLights[1].SetFlash(posKitt + desplazamientoKitt, unitaryX);
 		}
 		if (banderaCarro == true) {
 			posXcarro += 0.1 * deltaTime;
+			//*************************** FARO DEL CARRO ***********************
+			glm::vec3 unitaryX(1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
+			spotLights[1].SetFlash(posKitt + desplazamientoKitt, unitaryX);
 		}
 		desplazamientoKitt = glm::vec3(posXcarro, 0.5f, -1.5f);
 		//agregar su coche y ponerle material
@@ -514,13 +520,8 @@ int main()
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
 
-		//*************************** FARO DEL CARRO ***********************
-		//Posición aproximada para poner una luz en medio de los faros -1.5f, -1.5f, -2.5f
-		glm::vec3 carr(-1.5f + mainWindow.getmuevex(),
-			-1.5f, //Aquí no dupliqué la velocidad por que la velocidad de subida es más lenta que de forma horizontal
-			-2.5f + mainWindow.getmuevez()); //No olvidar aumentar agregar si se mueve a Z
-		glm::vec3 unitaryX(-1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
-		spotLights[1].SetFlash(carr, unitaryX);
+		
+		
 		
 		/*Ejercicio 1:
 		El helicóptero se desplaza en forma senoidal, llegue a un punto al avanzar, de la vuelta sobre su centro y regrese.esto de forma cíclica infinita.
