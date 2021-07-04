@@ -5,7 +5,7 @@ C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.c
 C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(400,43): warning C4244: '+=': conversión de 'double' a 'GLfloat'; posible pérdida de datos
 C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(457,32): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
 C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(460,32): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(528,16): warning C4305: '+=': truncamiento de 'double' a 'float'
-C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(561,33): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
-C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(566,33): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(532,16): warning C4305: '+=': truncamiento de 'double' a 'float'
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(565,33): warning C4244: '-=': conversión de 'double' a 'float'; posible pérdida de datos
+C:\Users\Yann\Desktop\Computación Grafica\Practica7\Practica5\Iluminacion2021.cpp(570,33): warning C4244: '+=': conversión de 'double' a 'float'; posible pérdida de datos
   Practica5.vcxproj -> C:\Users\Yann\Desktop\Computación Grafica\Practica7\Debug\Practica5.exe
