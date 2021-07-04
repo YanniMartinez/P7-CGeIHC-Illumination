@@ -325,6 +325,8 @@ int main()
 	float offset = 0.0f;
 	float posYavion = 0.0f;
 	float posXavion = 0.0f;
+	float rotarAvion = 0.0f;
+	bool bandera = false;
 
 	//posición inicial del helicóptero
 	glm::vec3 posblackhawk = glm::vec3(-20.0f, 6.0f, -1.0);
@@ -504,12 +506,22 @@ int main()
 			El coche avance y retrocede sin girar sobre su eje, el spotlight ilumine hacia la dirección donde el coche se está desplazand.o*/
 
 		//Helicoptero
-		offset += 0.01; //Controlará la velocidad en la que sube y baja el avion.
-		if (posXavion > -20) {
+		offset += 0.1; //Controlará la velocidad en la que sube y baja el avion.
+		/*if (posXavion > -20.0f) {
 			
 			posXavion -= 0.01 * deltaTime; //Permite desplazar hacia enfrente de forma constante. Se recomienda multiplicar por deltaTime
-		}
+			//printf("%f",&posXavion);
+		}*/
 		posYavion = sin(10*offset *toRadians);
+		
+		if (posXavion >= 0.0f) { //Limite derecho
+			bandera = false;
+		}
+
+		if (posXavion <= -10.0f) { //Limite izquierdo
+			bandera = true;
+		}
+		
 
 		desplazamiento = glm:: vec3 (posXavion , posYavion, 0.0f);		//agregar incremento en X con teclado
 		//desplazamiento = glm::vec3(mainWindow.getmuevex(), posYavion, 0.0f);		//agregar incremento en X con teclado
@@ -519,8 +531,24 @@ int main()
 		model = glm:: translate(model, posblackhawk + desplazamiento);
 		//model = glm::translate(model, glm::vec3(-20.0f + mainWindow.getmuevex(), 8.0 + mainWindow.getmuevey(), -1.0)); //Moviendo el helicoptero en los X,Y
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+	/*	if (posXavion <= -10.0f) {
+			
+			rotarAvion = 270.0f;
+			model = glm::rotate(model, 270 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //270
+			model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //-90
+			
+		}*/
+		if (bandera == false) { //Irá en negativo  <---
+			posXavion -= 0.01 * deltaTime;
+			model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
+			model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+		if (bandera == true) {
+			posXavion += 0.01 * deltaTime;
+			model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //270
+			model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //-90
+		}
+		//model = glm::rotate(model, rotarAvion * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//agregar material al helicóptero
 		Material_brillante.UseMaterial(uniformSpecularIntensity, uniformShininess);
@@ -536,11 +564,8 @@ int main()
 		//			posblackhawk.z);
 
 		//A diferentes velocidades horizontales
-		glm::vec3 helicopter(posblackhawk.x + mainWindow.getmuevex()+ posblackhawk.x + mainWindow.getmuevex(),
-							posblackhawk.y + mainWindow.getmuevey(), //Aquí no dupliqué la velocidad por que la velocidad de subida es más lenta que de forma horizontal
-							posblackhawk.z);
 		glm::vec3 unitaryY(0.0f, -1.0f, 0.0f); //Un unitario que tenga dirección hacia el suelo.
-		spotLights[2].SetFlash(helicopter, unitaryY);
+		spotLights[2].SetFlash(posblackhawk + desplazamiento, unitaryY);
 
 
 		model = glm::mat4(1.0);
