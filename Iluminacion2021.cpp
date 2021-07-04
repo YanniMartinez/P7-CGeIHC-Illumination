@@ -322,15 +322,20 @@ int main()
 	Material_brillante = Material(4.0f, 256); //Variable especular y brillo son los argumentos. Brillo muy grande
 	Material_opaco = Material(0.3f, 4); //Radio pequeño y brillo pequeño
 
+	//Variables para la animación
 	float offset = 0.0f;
 	float posYavion = 0.0f;
 	float posXavion = 0.0f;
-	float rotarAvion = 0.0f;
+	float posXcarro = 0.0f;
 	bool bandera = false;
+	bool banderaCarro = false;
 
 	//posición inicial del helicóptero
 	glm::vec3 posblackhawk = glm::vec3(-20.0f, 6.0f, -1.0);
 	glm::vec3 desplazamiento = glm:: vec3(0.0f, 0.0f, 0.0f);
+	//Posicion inicial Carro
+	glm::vec3 posKitt = glm::vec3(0.0f, 0.5f, -1.5f);
+	glm::vec3 desplazamientoKitt = glm::vec3(0.0f, 0.0f, 0.0f);
 	glm::vec3 luces = glm::vec3(5.0f, 5.0f, 5.0f);
 	//luz direccional, sólo 1 y siempre debe de existir
 	mainLight = DirectionalLight(1.0f, 1.0f, 1.0f, //Valores de color
@@ -440,14 +445,28 @@ int main()
 		Material_opaco.UseMaterial(uniformSpecularIntensity, uniformShininess);
 		meshList[2]->RenderMesh();
 
-		/*Movimineto de llantas*/
+		/*****************************C A R R O  *************************/
+		if (posXcarro >= 10.0f) { //Limite derecho
+			banderaCarro = false;
+		}
 
+		if (posXcarro <= -20.0f) { //Limite izquierdo
+			banderaCarro = true;
+		}
+		if (banderaCarro == false) { //Irá en negativo  <---
+			posXcarro -= 0.1 * deltaTime;
+		}
+		if (banderaCarro == true) {
+			posXcarro += 0.1 * deltaTime;
+		}
+		desplazamientoKitt = glm::vec3(posXcarro, 0.5f, -1.5f);
 		//agregar su coche y ponerle material
 		model = glm::mat4(1.0);
-		model = glm::translate(model, glm::vec3(0.0f + mainWindow.getmuevex(), 0.5f, -1.5f + mainWindow.getmuevez())); //mainWindow.getMuevex permite mover el objeto en X y getMueveZ en el eje Z
+		model = glm::translate(model, posKitt + desplazamientoKitt); //mainWindow.getMuevex permite mover el objeto en X y getMueveZ en el eje Z
 		modelAux = model; //Con esto ya estamos dandole jerarquia a la llanta
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
 		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Kitt_M.RenderModel();
 
@@ -457,10 +476,9 @@ int main()
 		model = glm::translate(model, glm::vec3(-3.5f, -0.5f, 2.7f));  //Ajustando la posición de la llanta
 		model = glm::scale(model, glm::vec3(0.017f, 0.017f, 0.017f)); //Ajustando el tamaño de la llanta
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, 180 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //Movimineto de llantas
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
-
+		 
 		
 		//Llanta derecha adelante:
 		//model = glm::mat4(1.0);
@@ -505,7 +523,7 @@ int main()
 
 			El coche avance y retrocede sin girar sobre su eje, el spotlight ilumine hacia la dirección donde el coche se está desplazand.o*/
 
-		//Helicoptero
+		/***************** H E L I C O P T E R O ************/
 		offset += 0.1; //Controlará la velocidad en la que sube y baja el avion.
 		/*if (posXavion > -20.0f) {
 			
