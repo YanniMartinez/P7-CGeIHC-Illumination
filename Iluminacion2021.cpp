@@ -326,8 +326,12 @@ int main()
 	float offset = 0.0f;
 	float posYavion = 0.0f;
 	float posXavion = 0.0f;
+	float posZavion = 0.0f;
+	float anguloAvion = 0.0f;
+
 	float posXcarro = 0.0f;
 	bool bandera = false;
+	bool banderaCurva = true;
 	bool banderaCarro = false;
 
 	//posición inicial del helicóptero
@@ -446,11 +450,11 @@ int main()
 		meshList[2]->RenderMesh();
 
 		/*****************************C A R R O  *************************/
-		if (posXcarro >= 10.0f) { //Limite derecho
+		if (posXcarro >= 100.0f) { //Limite derecho
 			banderaCarro = false;
 		}
 
-		if (posXcarro <= -20.0f) { //Limite izquierdo
+		if (posXcarro <= -100.0f) { //Limite izquierdo
 			banderaCarro = true;
 		}
 		if (banderaCarro == false) { //Irá en negativo  <---
@@ -538,16 +542,30 @@ int main()
 		}*/
 		posYavion = sin(10*offset *toRadians);
 		
-		if (posXavion >= 0.0f) { //Limite derecho
+		/************************
+		************************MOVIMIENTO DE GIRO DEL HELICOPTERO
+		************************
+		*/
+
+		if (posXavion >= 50.0f) { //Limite derecho
 			bandera = false;
 		}
 
-		if (posXavion <= -10.0f) { //Limite izquierdo
+		if (posXavion <= -50.0f) { //Limite izquierdo
 			bandera = true;
 		}
-		
 
-		desplazamiento = glm:: vec3 (posXavion , posYavion, 0.0f);		//agregar incremento en X con teclado
+		if (posXavion >= 25.0f) { //Es el punto en donde comenzará a dar la curva el helicoptero
+			banderaCurva = true; //Toma el giro derecho
+		}
+		if (posXavion <= -25.0f) { //Es el punto en donde comenzará a dar la curva el helicoptero
+			banderaCurva = false; //Toma el giro izquierdo
+		}
+		if (posXavion >= -25.0f && posXavion < 25.0f) { //Reinciando el angulo del helicoptero
+			anguloAvion = 0.0f; //Reinicia el ángulo cuando el trayecto es recto
+		}
+
+		desplazamiento = glm:: vec3 (posXavion , posYavion, posZavion);		//agregar incremento en X con teclado
 		//desplazamiento = glm::vec3(mainWindow.getmuevex(), posYavion, 0.0f);		//agregar incremento en X con teclado
 		//desplazamiento = glm::vec3(posXavion, posYavion, 0.0f);		//Se deplaza en forma diagonal
 
@@ -555,23 +573,38 @@ int main()
 		model = glm:: translate(model, posblackhawk + desplazamiento);
 		//model = glm::translate(model, glm::vec3(-20.0f + mainWindow.getmuevex(), 8.0 + mainWindow.getmuevey(), -1.0)); //Moviendo el helicoptero en los X,Y
 		model = glm::scale(model, glm::vec3(0.8f, 0.8f, 0.8f));
-	/*	if (posXavion <= -10.0f) {
-			
-			rotarAvion = 270.0f;
-			model = glm::rotate(model, 270 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //270
-			model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //-90
-			
-		}*/
+		if (banderaCurva == false && posXavion <= -25) {
+			posZavion -= 0.1 * deltaTime;
+			model = glm::rotate(model, -200 + anguloAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+			anguloAvion -= 0.1f;
+		}
+		if (banderaCurva == true && posXavion >= 25) {
+			posZavion += 0.1 * deltaTime;
+			model = glm::rotate(model, -90 +anguloAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+			anguloAvion -= 0.1f;
+		}
 		if (bandera == false) { //Irá en negativo  <---
-			posXavion -= 0.01 * deltaTime;
-			model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-			model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+			posXavion -= 0.1 * deltaTime;
+			model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //270
+			/*No modifica la rotación del helicoptero cuando está dando la curva, si no se incluye
+			hace un movimiento muy raro, es decir, le suma más grados al giro*/
+			if (posXavion <= 25 && banderaCurva != false) { 
+				model = glm::rotate(model, 90 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+			
 		}
 		if (bandera == true) {
-			posXavion += 0.01 * deltaTime;
-			model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); //270
-			model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //-90
+			posXavion += 0.1 * deltaTime;
+			//posZavion += 0.1 * deltaTime;
+			model = glm::rotate(model, -90 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f)); 
+			/*No modifica la rotación del helicoptero cuando está dando la curva, si no se incluye
+			hace un movimiento muy raro, es decir, le suma más grados al giro*/
+			if (posXavion >= -25 && banderaCurva != true) {
+				model = glm::rotate(model, 270 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+			
 		}
+		
 		//model = glm::rotate(model, rotarAvion * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		//agregar material al helicóptero
