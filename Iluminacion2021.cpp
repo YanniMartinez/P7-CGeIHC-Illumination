@@ -282,7 +282,7 @@ bool animacion = false;
 
 //NEW// Keyframes
 float posXavion = 2.0, posYavion = 2.0, posZavion = 0;
-float	movAvion_x = 0.0f, movAvion_y = 0.0f;
+float	movAvion_x = 0.0f, movAvion_y = 0.0f, movAvion_z=0.0f;
 float giroAvion = 0;
 
 #define MAX_FRAMES 100
@@ -293,14 +293,16 @@ typedef struct _frame
 	//Variables para GUARDAR Key Frames
 	float movAvion_x;		//Variable para PosicionX
 	float movAvion_y;		//Variable para PosicionY
+	float movAvion_z;		//Variable para PosicionZ
 	float movAvion_xInc;		//Variable para IncrementoX
 	float movAvion_yInc;		//Variable para IncrementoY
+	float movAvion_zInc;		//Variable para IncrementoY
 	float giroAvion;
 	float giroAvionInc;
 }FRAME;
 
 FRAME KeyFrame[MAX_FRAMES];
-int FrameIndex = 6;			//introducir datos
+int FrameIndex = 12;			//introducir datos
 bool play = false;
 int playIndex = 0;
 
@@ -312,6 +314,7 @@ void saveFrame(void) //tecla L
 
 	KeyFrame[FrameIndex].movAvion_x = movAvion_x;
 	KeyFrame[FrameIndex].movAvion_y = movAvion_y;
+	KeyFrame[FrameIndex].movAvion_z = movAvion_z;
 	KeyFrame[FrameIndex].giroAvion;
 	//no volatil, agregar una forma de escribir a un archivo para guardar los frames
 	FrameIndex++;
@@ -322,6 +325,7 @@ void resetElements(void) //Tecla 0
 
 	movAvion_x = KeyFrame[0].movAvion_x;
 	movAvion_y = KeyFrame[0].movAvion_y;
+	movAvion_z = KeyFrame[0].movAvion_z;
 	giroAvion = KeyFrame[0].giroAvion;
 }
 
@@ -329,6 +333,7 @@ void interpolation(void)
 {
 	KeyFrame[playIndex].movAvion_xInc = (KeyFrame[playIndex + 1].movAvion_x - KeyFrame[playIndex].movAvion_x) / i_max_steps;
 	KeyFrame[playIndex].movAvion_yInc = (KeyFrame[playIndex + 1].movAvion_y - KeyFrame[playIndex].movAvion_y) / i_max_steps;
+	KeyFrame[playIndex].movAvion_zInc = (KeyFrame[playIndex + 1].movAvion_z - KeyFrame[playIndex].movAvion_z) / i_max_steps;
 	KeyFrame[playIndex].giroAvionInc = (KeyFrame[playIndex + 1].giroAvion - KeyFrame[playIndex].giroAvion) / i_max_steps;
 
 }
@@ -365,6 +370,7 @@ void animate(void)
 			//Draw animation
 			movAvion_x += KeyFrame[playIndex].movAvion_xInc;
 			movAvion_y += KeyFrame[playIndex].movAvion_yInc;
+			movAvion_z += KeyFrame[playIndex].movAvion_zInc;
 			giroAvion += KeyFrame[playIndex].giroAvionInc;
 			i_curr_steps++;
 		}
@@ -503,34 +509,70 @@ int main()
 
 	KeyFrame[0].movAvion_x = 0.0f;
 	KeyFrame[0].movAvion_y = 0.0f;
+	KeyFrame[0].movAvion_z = 0.0f;
 	KeyFrame[0].giroAvion = 0;
 
 
-	KeyFrame[1].movAvion_x = 1.0f;
-	KeyFrame[1].movAvion_y = 2.0f;
+	KeyFrame[1].movAvion_x = -10.0f;
+	KeyFrame[1].movAvion_y = 0.0f;
+	KeyFrame[1].movAvion_z = 0.0f;
 	KeyFrame[1].giroAvion = 0;
 
 
-	KeyFrame[2].movAvion_x = 2.0f;
-	KeyFrame[2].movAvion_y = 0.0f;
+	KeyFrame[2].movAvion_x = -12.0f;
+	KeyFrame[2].movAvion_y = 5.0f;
+	KeyFrame[2].movAvion_z = 0.0f;
 	KeyFrame[2].giroAvion = 0;
 
 
-	KeyFrame[3].movAvion_x = 3.0f;
-	KeyFrame[3].movAvion_y = -2.0f;
+	KeyFrame[3].movAvion_x = -17.0f;
+	KeyFrame[3].movAvion_y = 0.0f;
+	KeyFrame[3].movAvion_z = 0.0f;
 	KeyFrame[3].giroAvion = 0;
 
 	/*	KeyFrame[4].movAvion_x = 3.0f;
 		KeyFrame[4].movAvion_y = -2.0f;
 		KeyFrame[4].giroAvion = 45.0f*/;
 
-		KeyFrame[4].movAvion_x = 3.0f;
-		KeyFrame[4].movAvion_y = -2.0f;
+		KeyFrame[4].movAvion_x = -25.0f;
+		KeyFrame[4].movAvion_y = 0.0f;
+		KeyFrame[4].movAvion_z = 0.0f;
 		KeyFrame[4].giroAvion = 180.0f;
 
-		KeyFrame[5].movAvion_x = 0.0f;
+		KeyFrame[5].movAvion_x = -25.0f;
 		KeyFrame[5].movAvion_y = 0.0f;
-		KeyFrame[5].giroAvion = 0;
+		KeyFrame[5].movAvion_z = 5.0f;
+		KeyFrame[5].giroAvion = 180.0f;
+
+		KeyFrame[6].movAvion_x = -20.0f;
+		KeyFrame[6].movAvion_y = 0.0f;
+		KeyFrame[6].movAvion_z = 10.0f;
+		KeyFrame[6].giroAvion = 180.0f;
+
+		KeyFrame[7].movAvion_x = -20.0f;
+		KeyFrame[7].movAvion_y = 0.0f;
+		KeyFrame[7].movAvion_z = 20.0f;
+		KeyFrame[7].giroAvion = 180.0f;
+
+		KeyFrame[8].movAvion_x = -30.0f;
+		KeyFrame[8].movAvion_y = 0.0f;
+		KeyFrame[8].movAvion_z = 25.0f;
+		KeyFrame[8].giroAvion = 180.0f;
+
+		KeyFrame[9].movAvion_x = -20.0f;
+		KeyFrame[9].movAvion_y = 0.0f;
+		KeyFrame[9].movAvion_z = 35.0f;
+		KeyFrame[9].giroAvion = 180.0f;
+
+		KeyFrame[10].movAvion_x = -20.0f;
+		KeyFrame[10].movAvion_y = 0.0f;
+		KeyFrame[10].movAvion_z = 15.0f;
+		KeyFrame[10].giroAvion = 180.0f;
+
+		KeyFrame[11].movAvion_x = 0.0f;
+		KeyFrame[11].movAvion_y = 0.0f;
+		KeyFrame[11].movAvion_z = 0.0f;
+		KeyFrame[11].giroAvion = 0;
 
 	float giro = 90.0f;
 	////Loop mientras no se cierra la ventana
@@ -609,7 +651,7 @@ int main()
 			glm::vec3 unitaryX(1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
 			spotLights[1].SetFlash(posKitt + desplazamientoKitt, unitaryX);
 		}
-		desplazamientoKitt = glm::vec3(movAvion_x, movAvion_y, -1.5f);
+		desplazamientoKitt = glm::vec3(movAvion_x, movAvion_y,  movAvion_z);
 		//agregar su coche y ponerle material
 		model = glm::mat4(1.0);
 		model = glm::translate(model, posKitt + desplazamientoKitt); //mainWindow.getMuevex permite mover el objeto en X y getMueveZ en el eje Z
