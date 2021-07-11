@@ -522,7 +522,7 @@ int main()
 	KeyFrame[2].movAvion_x = -12.0f;
 	KeyFrame[2].movAvion_y = 5.0f;
 	KeyFrame[2].movAvion_z = 0.0f;
-	KeyFrame[2].giroAvion = 0;
+	KeyFrame[2].giroAvion = 45;
 
 
 	KeyFrame[3].movAvion_x = -17.0f;
@@ -537,37 +537,37 @@ int main()
 		KeyFrame[4].movAvion_x = -25.0f;
 		KeyFrame[4].movAvion_y = 0.0f;
 		KeyFrame[4].movAvion_z = 0.0f;
-		KeyFrame[4].giroAvion = 180.0f;
+		KeyFrame[4].giroAvion = 0.0f;
 
 		KeyFrame[5].movAvion_x = -25.0f;
 		KeyFrame[5].movAvion_y = 0.0f;
 		KeyFrame[5].movAvion_z = 5.0f;
-		KeyFrame[5].giroAvion = 180.0f;
+		KeyFrame[5].giroAvion = 45.0f;
 
 		KeyFrame[6].movAvion_x = -20.0f;
 		KeyFrame[6].movAvion_y = 0.0f;
 		KeyFrame[6].movAvion_z = 10.0f;
-		KeyFrame[6].giroAvion = 180.0f;
+		KeyFrame[6].giroAvion = 45.0f;
 
 		KeyFrame[7].movAvion_x = -20.0f;
 		KeyFrame[7].movAvion_y = 0.0f;
 		KeyFrame[7].movAvion_z = 20.0f;
-		KeyFrame[7].giroAvion = 180.0f;
+		KeyFrame[7].giroAvion = 45.0f;
 
 		KeyFrame[8].movAvion_x = -30.0f;
 		KeyFrame[8].movAvion_y = 0.0f;
 		KeyFrame[8].movAvion_z = 25.0f;
-		KeyFrame[8].giroAvion = 180.0f;
+		KeyFrame[8].giroAvion = 45.0f;
 
 		KeyFrame[9].movAvion_x = -20.0f;
 		KeyFrame[9].movAvion_y = 0.0f;
 		KeyFrame[9].movAvion_z = 35.0f;
-		KeyFrame[9].giroAvion = 180.0f;
+		KeyFrame[9].giroAvion = 45.0f;
 
 		KeyFrame[10].movAvion_x = -20.0f;
 		KeyFrame[10].movAvion_y = 0.0f;
 		KeyFrame[10].movAvion_z = 15.0f;
-		KeyFrame[10].giroAvion = 180.0f;
+		KeyFrame[10].giroAvion = 45.0f;
 
 		KeyFrame[11].movAvion_x = 0.0f;
 		KeyFrame[11].movAvion_y = 0.0f;
@@ -632,32 +632,14 @@ int main()
 		meshList[2]->RenderMesh();
 
 		/*****************************C A R R O  *************************/
-		if (posXcarro >= 100.0f) { //Limite derecho   -->  False  <---
-			banderaCarro = false;
-		}
-
-		if (posXcarro <= -100.0f) { //Limite izquierdo
-			banderaCarro = true;   // <--  true -->
-		}
-		if (banderaCarro == false) { //Irá en negativo  <---
-			posXcarro -= 0.1 * deltaTime;
-			//*************************** FARO DEL CARRO ***********************
-			glm::vec3 unitaryX(-1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
-			spotLights[1].SetFlash(posKitt + desplazamientoKitt, unitaryX);
-		}
-		if (banderaCarro == true) {
-			posXcarro += 0.1 * deltaTime;
-			//*************************** FARO DEL CARRO ***********************
-			glm::vec3 unitaryX(1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
-			spotLights[1].SetFlash(posKitt + desplazamientoKitt, unitaryX);
-		}
+		
 		desplazamientoKitt = glm::vec3(movAvion_x, movAvion_y,  movAvion_z);
 		//agregar su coche y ponerle material
 		model = glm::mat4(1.0);
 		model = glm::translate(model, posKitt + desplazamientoKitt); //mainWindow.getMuevex permite mover el objeto en X y getMueveZ en el eje Z
 		modelAux = model; //Con esto ya estamos dandole jerarquia a la llanta
 		model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-		model = glm::rotate(model, -90 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
+		model = glm::rotate(model, 80 +giroAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Kitt_M.RenderModel();
@@ -669,7 +651,7 @@ int main()
 		model = glm::scale(model, glm::vec3(0.017f, 0.017f, 0.017f)); //Ajustando el tamaño de la llanta
 		model = glm::rotate(model, -180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //Movimineto de llantas
-		model = glm::rotate(model, giro * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //Permite ver que giran la llanta
+		model = glm::rotate(model, giroAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f)); //Permite ver que giran la llanta
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
 		 
@@ -681,7 +663,7 @@ int main()
 		model = glm::scale(model, glm::vec3(0.017f, 0.017f, 0.017f)); //Ajustando el tamaño de la llanta
 		model = glm::rotate(model, 360 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
 		//model = glm::rotate(model, -360 * toRadians, glm::vec3(1.0f, 0.0f, 0.0f));
-		model = glm::rotate(model, giro * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //Permite ver que giran la llanta
+		model = glm::rotate(model, giroAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));  //Permite ver que giran la llanta
 		//Falta girar la llanta para que se vea al revés
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
@@ -692,7 +674,7 @@ int main()
 		model = glm::translate(model, glm::vec3(5.1f, -0.5f, 2.7f));  //Ajustando la posición de la llanta
 		model = glm::scale(model, glm::vec3(0.017f, 0.017f, 0.017f)); //Ajustando el tamaño de la llanta
 		model = glm::rotate(model, 180 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, giro * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //Permite ver que giran la llanta
+		model = glm::rotate(model, giroAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));  //Permite ver que giran la llanta
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
 
@@ -702,7 +684,7 @@ int main()
 		model = glm::translate(model, glm::vec3(5.1f, -0.5f, -3.0f));  //Ajustando la posición de la llanta
 		model = glm::scale(model, glm::vec3(0.017f, 0.017f, 0.017f)); //Ajustando el tamaño de la llanta
 		model = glm::rotate(model, 360 * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));
-		model = glm::rotate(model, giro * toRadians, glm::vec3(0.0f, 0.0f, 1.0f)); //Permite ver que giran la llanta
+		model = glm::rotate(model, giroAvion * toRadians, glm::vec3(0.0f, 1.0f, 0.0f));  //Permite ver que giran la llanta
 		glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
 		Llanta_M.RenderModel();
 
