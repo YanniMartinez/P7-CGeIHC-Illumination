@@ -609,7 +609,7 @@ int main()
 			glm::vec3 unitaryX(1.0f, 0.0f, 0.0f); //Un unitario que tenga dirección enfrente
 			spotLights[1].SetFlash(posKitt + desplazamientoKitt, unitaryX);
 		}
-		desplazamientoKitt = glm::vec3(posXcarro, 0.5f, -1.5f);
+		desplazamientoKitt = glm::vec3(movAvion_x, movAvion_y, -1.5f);
 		//agregar su coche y ponerle material
 		model = glm::mat4(1.0);
 		model = glm::translate(model, posKitt + desplazamientoKitt); //mainWindow.getMuevex permite mover el objeto en X y getMueveZ en el eje Z
